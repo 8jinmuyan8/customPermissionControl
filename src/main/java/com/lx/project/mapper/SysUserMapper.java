@@ -31,4 +31,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 登录返回token给用户
      */
     SysUserSignModel signIn(@Param("account") String username, @Param("password") String password);
+    /**
+     * 退出登录
+     */
+    void signOut(@Param("userId")int userId);
 }

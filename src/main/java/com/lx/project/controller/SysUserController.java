@@ -46,7 +46,7 @@ public class SysUserController extends BaseController{
     @GetMapping("/signOut")
     public JSONModel signOut() {
         CurrentUser currentUser = CurrentUserContext.get();
-     //   sysUserService.signOut(currentUser);
+       sysUserService.signOut(currentUser);
         return JSONModel.buildSuccess("退出成功");
     }
 }

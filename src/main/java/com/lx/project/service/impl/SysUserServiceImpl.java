@@ -75,4 +75,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         return signModel;
     }
+
+    @Override
+    public void signOut(CurrentUser currentUser) {
+        int userId = currentUser.getId();
+          userMapper.signOut(userId);
+
+    }
 }

@@ -27,5 +27,8 @@ public interface ISysUserService extends IService<SysUser> {
      * 登录返回token id给用户
      */
     SysUserSignModel signIn(String username, String password, String ipAddr, String userAegnt);
-
+    /**
+     * 退出登录
+     */
+    void signOut(CurrentUser currentUser);
 }

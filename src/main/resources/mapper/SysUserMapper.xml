@@ -44,5 +44,8 @@
         from tb_sys_user
         where  account = #{account} and password = #{password}
     </select>
+    <update id="signOut" parameterType="int">
+       update tb_sys_user set access_token = null where id = #{userId}
+    </update>
 
 </mapper>
