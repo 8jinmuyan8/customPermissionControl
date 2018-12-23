@@ -44,7 +44,7 @@ public class CodeGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = "/Users/ppd/Desktop/study/customPermission/project";//更换为自己电脑路径
+        String projectPath = "/Users/ppd/Desktop/study/customPermission";//更换为自己电脑路径
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("LX");
         gc.setOpen(false);

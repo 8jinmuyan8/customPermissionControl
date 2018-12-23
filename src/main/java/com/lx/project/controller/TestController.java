@@ -17,10 +17,16 @@ public class TestController extends BaseController {
     @Autowired
     ISysUserService userService;
 
-    @GetMapping("/hello")
+    @GetMapping("/")
     public String hello(){
       SysUser sysUser = userService.selectByAccount("lx");
 
         return JacksonUtils.toJson(sysUser);
+    }
+    @GetMapping("/hello")
+    public String test(){
+        SysUser sysUser = userService.selectByAccount("lx");
+
+        return "hello";
     }
 }

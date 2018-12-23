@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lx.project.mapper.SysUserMapper">
-    <resultMap id="BaseResultMap" type="com.project.order.entity.SysUser">
+    <resultMap id="BaseResultMap" type="com.lx.project.entity.SysUser">
         <id column="id" jdbcType="INTEGER" property="Id" />
         <result column="account" jdbcType="VARCHAR" property="account" />
         <result column="mobile" jdbcType="VARCHAR" property="mobile" />
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="email" jdbcType="VARCHAR" property="email" />
         <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+        <result column="domain_name" jdbcType="VARCHAR" property="domainName" />
         <result column="birthday" jdbcType="VARCHAR" property="birthday" />
         <result column="sex" jdbcType="INTEGER" property="sex" />
         <result column="isactive" jdbcType="INTEGER" property="isactive" />
@@ -15,7 +17,32 @@
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
     </resultMap>
 
+    <resultMap id="CurrentUserResultMap" type="com.lx.project.base.CurrentUser">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="domain_name" jdbcType="VARCHAR" property="domainName" />
+    </resultMap>
+
+    <resultMap id="UserSignResultMap" type="com.lx.project.domain.SysUserSignModel">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="access_token" jdbcType="VARCHAR" property="token" />
+    </resultMap>
+
     <select id="selectByAccount" parameterType="string" resultMap="BaseResultMap">
-        select * from tb_sys_user where  account = #{account}
+        select *
+        from tb_sys_user
+        where  account = #{account}
     </select>
+
+    <select id="queryByAccessToken" parameterType="string" resultMap="CurrentUserResultMap">
+        select id,domain_name
+        from tb_sys_user
+        where  access_token = #{token}
+    </select>
+
+    <select id="signIn" parameterType="string" resultMap="UserSignResultMap">
+        select id,access_token
+        from tb_sys_user
+        where  account = #{account} and password = #{password}
+    </select>
+
 </mapper>

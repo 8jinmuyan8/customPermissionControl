@@ -1,5 +1,7 @@
 package com.lx.project.mapper;
 
+import com.lx.project.base.CurrentUser;
+import com.lx.project.domain.SysUserSignModel;
 import com.lx.project.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,5 +23,12 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 通过name查询ID
      */
     SysUser selectByAccount(@Param("account") String account);
-
+    /**
+     * 通过token确定当前用户
+     */
+    CurrentUser queryByAccessToken(@Param("token") String token);
+    /**
+     * 登录返回token给用户
+     */
+    SysUserSignModel signIn(@Param("account") String username, @Param("password") String password);
 }
