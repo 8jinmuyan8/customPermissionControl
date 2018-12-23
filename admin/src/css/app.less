@@ -1,0 +1,47 @@
+@import (less) "~heyui/themes/common.less";
+@import (less) "./overwrite.less";
+@import (less) "./fonts/style.less";
+@import (less) "./frame.less";
+@import (less) "./markdown.less";
+
+
+.font-size(@var, @size) {
+  .font@{var} {
+    font-size: @size !important;
+  }
+}
+
+.font-size(12, 12px);
+.font-size(13, 13px);
+.font-size(14, 14px);
+.font-size(15, 15px);
+.font-size(16, 16px);
+.font-size(18, 18px);
+.font-size(20, 20px);
+.font-size(22, 22px);
+.font-size(28, 28px);
+
+
+body{
+  background: #f3f6f8;
+  color: #212529;
+  font-weight: 400;
+}
+
+p {
+  margin: 0;
+}
+
+.frame-page {
+  margin: 30px;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  vertical-align: 1px;
+}
+
+
+.echarts {
+  height: 400px;
+  overflow: auto;
+}
