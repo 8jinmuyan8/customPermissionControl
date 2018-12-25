@@ -94,10 +94,10 @@
       <div class="login-content">
         <div class="login-title">管理系统</div>
         <div class="login-name">
-          <input type="text" v-model="login.username" placeholder="用户名"/>
+          <input type="text" v-model="data.username" placeholder="用户名"/>
         </div>
         <div class="login-password">
-          <input type="password" v-model="login.password" placeholder="密码" @keyup.enter="submit"/>
+          <input type="password" v-model="data.password" placeholder="密码" @keyup.enter="submit"/>
         </div>
         <div class="buttonDiv">
           <p @click="submit" ><i class="h-loading" v-if="loading"></i>登录</p>
@@ -108,27 +108,29 @@
   </div>
 </template>
 <script>
-
-import Login from 'model/login/Login';
+  import axios from 'axios'
+  import Qs from 'qs'
 
 export default {
   data() {
     return {
-      login: Login.parse({}),
-      loading: false
+      loading: false,
+      data:{ username :'',password:''},
     }
   },
   methods: {
     submit() {
       this.loading = true;
-      R.Login.login(Login.dispose(this.login)).then(resp=>{
-        if(resp.ok){
-          let msg = resp.body;
-          Utils.saveLocal("token", msg.value);
-          this.$router.replace('/');
+       log("hello");
+      let params = Qs.stringify(this.data);
+      axios.post("/login", params, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
-        this.loading = false;
+      }).then(response => {
+        log(response.data);
       });
+
     }
   }
 }

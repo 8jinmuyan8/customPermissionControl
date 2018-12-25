@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const initRouter = () => {
   const routerParam = {
-    mode: 'history',
+    //mode: 'history',
     routes: [{
       path: '/login',
       name: 'login',
@@ -128,13 +128,13 @@ const initRouter = () => {
         name: 'permissionError',
         component: (resolve) => require(['components/error-pages/403'], resolve),
         meta: {title: '权限错误'}
-      }, 
+      },
       {
         path: '/notfoundError',
         name: 'notfoundError',
         component: (resolve) => require(['components/error-pages/404'], resolve),
         meta: {title: '页面找不到'}
-      }, 
+      },
       {
         path: '*',
         component: (resolve) => require(['components/error-pages/404'], resolve),
@@ -160,15 +160,9 @@ const initRouter = () => {
       if(document.querySelector('.app-body')) {
         document.querySelector('.app-body').scrollTop = 0;
       }
-      // HeyUI.$ScrollIntoView(document.querySelector('.app-body'), {
-      //   time: 0,
-      //   align:{
-      //     top: 0,
-      //     topOffset: 0,
-      //   },
-      // })
+      
     });
-    window._hmt.push(['_trackPageview', window.location.pathname]);
+
   });
   return router;
 }

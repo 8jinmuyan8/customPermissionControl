@@ -83,20 +83,18 @@
       <div class="app-header-icon-item">
         <Badge :count="2"><i class="h-icon-bell"></i></Badge>
       </div>
-      <div class="app-header-icon-item" v-tooltip content="说明文档" theme="white">
-        <a href="https://github.com/heyui/heyui-admin" target="_blank"><i class="h-icon-help"></i></a>
-      </div>
-      <DropdownMenu className="app-header-dropdown" trigger="hover" offset="0 5" :width="150" placement="bottom-end" :datas="infoMenu" @onclick="trigger"><span>{{User.name}}</span></DropdownMenu>
+
+      <DropdownMenu className="app-header-dropdown" trigger="hover" offset="0 5" :width="150" placement="bottom-end" :datas="infoMenu" @onclick="trigger"><span>{{name}}</span></DropdownMenu>
     </div>
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       searchText: '',
+      name:'lx',
       infoMenu: [
         { key: "info", title: "个人信息", icon: "h-icon-user" },
         { key: "logout", title: "退出登录", icon: "h-icon-outbox" }
@@ -104,14 +102,11 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      User: "User"
-    })
+
   },
   methods: {
     trigger(data) {
       if (data == "logout") {
-        Utils.removeLocal("Auth");
         this.$router.replace("/login");
       }
     }

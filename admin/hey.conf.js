@@ -13,16 +13,14 @@ module.exports = {
     commonTrunk: {
       common: [
         'manba',
-        'js-model',
         './src/js/common/utils',
-        './src/js/common/request',
         'hey-global',
         'hey-log',
         'heyui',
+        './src/js/common/fetch'
       ]
     },
     alias: {
-      model: './src/js/model/',
       js: './src/js/',
       components: './src/components/',
     },
@@ -30,17 +28,17 @@ module.exports = {
       Utils: './src/js/common/utils',
       Manba: 'manba',
       HeyUI: 'heyui',
-      Model: 'js-model',
       G: 'hey-global',
       log: 'hey-log',
-      R: './src/js/common/request'
+      R: './src/js/common/request',
+      fetch:'./src/js/common/fetch'
     },
     devServer: {
       proxy: {
-        // 此处应该配置为开发服务器的后台地址
-        // '/api': {
-        //   target: 'http://xxx.xx.xx'
-        // }
+       // 此处应该配置为开发服务器的后台地址
+        '/sys/': {
+          target: 'http://localhost:8080'
+        }
       },
       historyApiFallback: true
     },
