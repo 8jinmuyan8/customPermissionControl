@@ -1,6 +1,7 @@
 package com.lx.project.base;
 
 public class CurrentUser {
+
     private Integer id;
 
     private String domainName;

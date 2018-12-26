@@ -2,11 +2,14 @@ package com.lx.project.mapper;
 
 import com.lx.project.base.CurrentUser;
 import com.lx.project.domain.SysUserSignModel;
+import com.lx.project.entity.SysMenu;
 import com.lx.project.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -35,4 +38,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 退出登录
      */
     void signOut(@Param("userId")int userId);
+    /**
+     * 根据userID查出menu
+     */
+    List<SysMenu > listMenuByUserId(@Param("userId")int userId);
 }

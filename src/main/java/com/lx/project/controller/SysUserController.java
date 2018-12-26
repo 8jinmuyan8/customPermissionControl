@@ -5,6 +5,7 @@ import com.lx.project.BizException;
 import com.lx.project.base.CurrentUser;
 import com.lx.project.base.CurrentUserContext;
 import com.lx.project.domain.SysUserSignModel;
+import com.lx.project.entity.SysMenu;
 import com.lx.project.service.ISysUserService;
 import com.lx.project.utils.JSONModel;
 import com.lx.project.utils.WebUtils;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -48,5 +50,13 @@ public class SysUserController extends BaseController{
         CurrentUser currentUser = CurrentUserContext.get();
        sysUserService.signOut(currentUser);
         return JSONModel.buildSuccess("退出成功");
+    }
+
+    @GetMapping("/menu")
+    public JSONModel menu() {
+        CurrentUser currentUser = CurrentUserContext.get();
+        List<SysMenu> list = sysUserService.listMenuByUserId(currentUser.getId());
+
+        return JSONModel.buildSuccess("ok", list);
     }
 }

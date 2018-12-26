@@ -90,9 +90,9 @@
 
 <template>
   <div id="app">
-    <template >
+    <template  >
       <div class="login" v-if="!signIn">
-        <div class="login-vue" >
+        <div class="login-vue" v-if="!loading">
           <div class="login-container">
             <div class="login-content">
               <div class="login-title">管理系统</div>
@@ -126,7 +126,8 @@
 export default {
   data() {
     return {
-      data:{username:'',password:''}
+      data:{username:'',password:''},
+      loading:false,
     }
   },
   mounted() {
@@ -139,6 +140,7 @@ export default {
   methods: {
   submit() {
     //
+    this.loading = true;
     let username = this.data.username;
     let password = this.data.password;
     if ('' == username) {
@@ -163,6 +165,7 @@ export default {
       let m = res.result;
       window.localStorage.setItem('token', m.token);
       this.$store.dispatch('getSignInStatus', true);
+      this.loading = false;
       this.$router.push('/');
 
     });

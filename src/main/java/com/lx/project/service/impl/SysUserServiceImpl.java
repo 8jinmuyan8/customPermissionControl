@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.lx.project.BizException;
 import com.lx.project.base.CurrentUser;
 import com.lx.project.domain.SysUserSignModel;
+import com.lx.project.entity.SysMenu;
 import com.lx.project.entity.SysSignLog;
 import com.lx.project.entity.SysUser;
 import com.lx.project.mapper.SysSignLogMapper;
 import com.lx.project.mapper.SysUserMapper;
 import com.lx.project.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lx.project.utils.DateUtils;
 import com.lx.project.utils.IDUtils;
 import com.lx.project.utils.TokenUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.parser.Entity;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -66,11 +70,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         signLog.setStatus(1);
         sysSignLogMapper.update(signLog,null);
 
-        String creatToken = username +";" + IDUtils.createID();
+        String creatToken = username +";"+ System.currentTimeMillis();
         creatToken = TokenUtils.encrypt(creatToken);
         SysUser sysUser = new SysUser();
         sysUser.setId(signModel.getId());
         sysUser.setAccessToken(creatToken);
+        signModel.setToken(creatToken);
         userMapper.updateById(sysUser) ;
 
         return signModel;
@@ -81,5 +86,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         int userId = currentUser.getId();
           userMapper.signOut(userId);
 
+    }
+
+    @Override
+    public List<SysMenu> listMenuByUserId(int userId) {
+        return userMapper.listMenuByUserId(userId);
     }
 }

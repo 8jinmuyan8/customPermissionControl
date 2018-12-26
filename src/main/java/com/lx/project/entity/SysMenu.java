@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class SysMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    private Integer id;
     /**
      * 名称
      */
@@ -61,6 +61,14 @@ public class SysMenu implements Serializable {
      * 修改时间
      */
     private LocalDateTime updatetime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

@@ -2,9 +2,12 @@ package com.lx.project.service;
 
 import com.lx.project.base.CurrentUser;
 import com.lx.project.domain.SysUserSignModel;
+import com.lx.project.entity.SysMenu;
 import com.lx.project.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -31,4 +34,9 @@ public interface ISysUserService extends IService<SysUser> {
      * 退出登录
      */
     void signOut(CurrentUser currentUser);
+
+    /**
+     * 根据userID查出menu
+     */
+    List<SysMenu > listMenuByUserId(int userId);
 }

@@ -1,9 +1,16 @@
 package com.lx.project.controller;
 
 
+import com.lx.project.entity.SysMenu;
+import com.lx.project.service.ISysMenuService;
+import com.lx.project.utils.JSONModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/sys/menu")
 public class SysMenuController {
+    @Autowired
+    ISysMenuService menuService;
+
+    @GetMapping("/list")
+    public JSONModel list() {
+        List<SysMenu> list = menuService.list();
+        return JSONModel.buildSuccess("ok", list);
+    }
 
 }

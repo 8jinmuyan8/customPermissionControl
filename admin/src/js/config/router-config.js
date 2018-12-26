@@ -160,7 +160,7 @@ const initRouter = () => {
       if(document.querySelector('.app-body')) {
         document.querySelector('.app-body').scrollTop = 0;
       }
-      
+
     });
 
   });

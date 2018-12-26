@@ -23,7 +23,7 @@
       background: rgba(255, 255, 255, 0.07);
     }
     .h-menu-li > ul > li > div {
-      padding-left: 54px;  
+      padding-left: 54px;
     }
   }
 }
@@ -41,7 +41,8 @@ import menuConfig from '../../js/config/menu-config';
 export default {
   data() {
     return {
-      menus: menuConfig
+      menus: [],
+      select: ''
     }
   },
   watch: {
@@ -50,9 +51,44 @@ export default {
     }
   },
   mounted() {
+    this.init();
     this.menuSelect();
   },
   methods: {
+    init(){
+      fetch.get('/sys/user/menu').then(res=>{
+        if ('000000' == res.code) {
+          let list = res.result;
+          this.buildMenus(list);
+        }
+      })
+    },
+  buildMenus(list) {
+    let menu = [];
+    for (let i in list) {
+      let item = list[i];
+      if (null == item.parentId) {
+        item.key = item.path;
+        item.title = item.name;
+        item.children = [];
+        this.setChildren(item.id, item.children, list);
+        menu.push(item);
+      }
+    }
+    this.menus = menu;
+  },
+    setChildren(parentId, children, list) {
+      for (let i in list) {
+        let item = list[i];
+        if (parentId == item.parentId) {
+          item.key = item.path;
+          item.title = item.name;
+          item.children = [];
+          this.setChildren(item.id, item.children, list);
+          children.push(item);
+        }
+      }
+    },
     menuSelect() {
       if (this.$route.name) {
         this.$refs.menu.select(this.$route.name);
