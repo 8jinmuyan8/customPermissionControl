@@ -19,6 +19,16 @@ const initRouter = () => {
         component: (resolve) => require(['components/welcome/home'], resolve),
         meta: {title: '首页', icon: 'icon-monitor'}
       }, {
+          path: '/sys/user',
+          name: '/sys/user',
+          component: (resolve) => require(['components/setting/sysUser'], resolve),
+          meta: {title: '用户管理', icon: 'h-icon-user'}
+      }, {
+          path: '/sys/role',
+          name: '/sys/role',
+          component: (resolve) => require(['components/setting/sysRole'], resolve),
+          meta: {title: '用户管理', icon: 'h-icon-users'}
+      }, {
         path: '/form',
         name: 'form',
         component: (resolve) => require(['components/demo-components/form'], resolve),

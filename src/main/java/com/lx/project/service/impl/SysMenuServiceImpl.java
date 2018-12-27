@@ -4,7 +4,10 @@ import com.lx.project.entity.SysMenu;
 import com.lx.project.mapper.SysMenuMapper;
 import com.lx.project.service.ISysMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>

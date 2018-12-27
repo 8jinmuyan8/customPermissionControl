@@ -23,13 +23,5 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/menu")
 public class SysMenuController {
-    @Autowired
-    ISysMenuService menuService;
-
-    @GetMapping("/list")
-    public JSONModel list() {
-        List<SysMenu> list = menuService.list();
-        return JSONModel.buildSuccess("ok", list);
-    }
 
 }

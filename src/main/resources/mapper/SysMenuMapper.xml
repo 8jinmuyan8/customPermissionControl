@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lx.project.mapper.SysMenuMapper">
+    <resultMap id="BaseResultMap" type="com.lx.project.entity.SysMenu">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="path" jdbcType="VARCHAR" property="path" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="seq" jdbcType="INTEGER" property="seq" />
+        <result column="domain_name" jdbcType="INTEGER" property="domainName" />
+        <result column="isactive" jdbcType="INTEGER" property="isactive" />
+        <result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    </resultMap>
 
 </mapper>
