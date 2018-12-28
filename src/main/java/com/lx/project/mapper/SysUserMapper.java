@@ -1,5 +1,7 @@
 package com.lx.project.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.base.CurrentUser;
 import com.lx.project.domain.SysUserSignModel;
 import com.lx.project.entity.SysMenu;
@@ -42,4 +44,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 根据userID查出menu
      */
     List<SysMenu > listMenuByUserId(@Param("userId")int userId);
+    /**
+     * 自定义分页
+     */
+    IPage<SysUser> getList(Page page, @Param("name") String name,@Param("id") Integer id);
 }

@@ -1,6 +1,8 @@
 package com.lx.project.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.BizException;
 import com.lx.project.base.CurrentUser;
 import com.lx.project.domain.SysUserSignModel;
@@ -91,5 +93,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<SysMenu> listMenuByUserId(int userId) {
         return userMapper.listMenuByUserId(userId);
+    }
+
+    @Override
+    public IPage<SysUser> getList(Page page, String name, Integer id) {
+        return userMapper.getList(page,name,id);
     }
 }

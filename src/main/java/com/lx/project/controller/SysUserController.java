@@ -1,14 +1,19 @@
 package com.lx.project.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.BizException;
 import com.lx.project.base.CurrentUser;
 import com.lx.project.base.CurrentUserContext;
 import com.lx.project.domain.SysUserSignModel;
 import com.lx.project.entity.SysMenu;
+import com.lx.project.entity.SysUser;
 import com.lx.project.service.ISysUserService;
 import com.lx.project.utils.JSONModel;
 import com.lx.project.utils.WebUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -58,5 +65,30 @@ public class SysUserController extends BaseController{
         List<SysMenu> list = sysUserService.listMenuByUserId(currentUser.getId());
 
         return JSONModel.buildSuccess("ok", list);
+    }
+
+    @PostMapping("/list")
+    public JSONModel list(HttpServletRequest request) {
+        CurrentUser currentUser = CurrentUserContext.get();
+        int page = 0;
+        int pageSize = 10;
+
+        try {
+            page = getInt(request, "page");
+            pageSize = getInt(request, "pageSize");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        String name = getString(request, "name");
+
+        IPage<SysUser> result = sysUserService.getList(new Page<>(page,pageSize),name,currentUser.getId());
+
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("list", result.getRecords());
+        data.put("total", result.getTotal());
+        return JSONModel.buildSuccess("ok", result);
     }
 }

@@ -76,6 +76,7 @@ export default {
       }
     }
     this.menus = menu;
+    log(menu)
   },
     setChildren(parentId, children, list) {
       for (let i in list) {
@@ -91,7 +92,7 @@ export default {
     },
     menuSelect() {
       if (this.$route.name) {
-        this.$refs.menu.select(this.$route.name);
+        //this.$refs.menu.select(this.$route.name);
       }
     },
     trigger(data) {
