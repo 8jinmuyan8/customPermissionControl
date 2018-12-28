@@ -18,7 +18,7 @@
         <div class="h-panel-body">
 
             <Form mode="inline" :label-width="110" :model="search" ref="form" :top="0.2">
-                <FormItem label="用户名">
+                <FormItem label="账户名">
                     <input type="text" v-model="search.name"/>
                 </FormItem>
                 <FormItem>
@@ -30,8 +30,11 @@
                 <TableItem title="No." :width="50">
                     <template slot-scope="props">{{props.index + 1}}</template>
                 </TableItem>
-                <TableItem title="用户名"  prop="userName"></TableItem>
-                <TableItem title="昵称"  prop="nickName"></TableItem>
+                <TableItem title="账户名"  prop="account"></TableItem>
+                <TableItem title="名字"  prop="name"></TableItem>
+
+                <TableItem title="邮箱"  prop="email"></TableItem>
+                <TableItem title="生日"  prop="birthday"></TableItem>
                 <TableItem title="性别">
                     <template slot-scope="props">
                         <span class="" v-if="props.data.sex == 1">男</span>
@@ -40,13 +43,7 @@
                 </TableItem>
                 <TableItem title="密码"  prop="password"></TableItem>
                 <TableItem title="邮箱" prop="email"></TableItem>
-                <TableItem title="角色"  prop="rname"></TableItem>
-                <TableItem title="状态" >
-                    <template slot-scope="props">
-                        <span class="h-tag h-tag-bg-green" v-if="props.data.ban == 0">启用</span>
-                        <span class="h-tag h-tag-bg-red" v-if="props.data.ban == 1">禁用中</span>
-                    </template>
-                </TableItem>
+                <TableItem title="角色"  prop="roleName"></TableItem>
                 <TableItem title="操作">
                     <template slot-scope="props">
                         <button class="h-btn h-btn-s" @click="showUpdate(props.data)"><i class="h-icon-edit"></i> 编辑
@@ -140,18 +137,17 @@
             loadData() {
                 fetch.post('/sys/user/list', this.search).then(res => {
                     log(res)
-                    if (200 == res.code) {
-                        let result = res.message;
-                        let list = result.list;
+                    if ("000000" == res.code) {
+                        let list = res.result.list;
                         this.list = null == list ? [] : list;
-                        this.search.total = result.total;
+                        this.search.total = res.result.total;
                     }
                 });
             },
             initRole() {
                 fetch.get('/sys/role/list').then(res => {
-                    if ( 200 == res.code) {
-                        this.roles = res.message.list;
+                    if ( "000000" == res.code) {
+                        this.roles = res.result.list;
                     }
                 });
             },

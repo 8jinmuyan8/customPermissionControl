@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.BizException;
 import com.lx.project.base.CurrentUser;
 import com.lx.project.domain.SysUserSignModel;
+import com.lx.project.domain.UserRoleBean;
 import com.lx.project.entity.SysMenu;
 import com.lx.project.entity.SysSignLog;
 import com.lx.project.entity.SysUser;
@@ -98,5 +99,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public IPage<SysUser> getList(Page page, String name, Integer id) {
         return userMapper.getList(page,name,id);
+    }
+
+    @Override
+    public IPage<UserRoleBean> getUserList(Page page, String acount, Integer id) {
+        return userMapper.getUserList(page,acount,id);
     }
 }

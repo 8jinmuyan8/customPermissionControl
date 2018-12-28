@@ -20,7 +20,7 @@ public class SysRole implements Serializable {
     /**
      * 角色名称
      */
-    private String name;
+    private String rname;
 
     /**
      * 描述
@@ -48,11 +48,11 @@ public class SysRole implements Serializable {
     private LocalDateTime updatetime;
 
     public String getName() {
-        return name;
+        return rname;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.rname = name;
     }
     public String getDescription() {
         return description;
@@ -93,7 +93,7 @@ public class SysRole implements Serializable {
     @Override
     public String toString() {
         return "SysRole{" +
-        "name=" + name +
+        "name=" + rname +
         ", description=" + description +
         ", domainName=" + domainName +
         ", isactive=" + isactive +

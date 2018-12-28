@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.base.CurrentUser;
 import com.lx.project.domain.SysUserSignModel;
+import com.lx.project.domain.UserRoleBean;
 import com.lx.project.entity.SysMenu;
 import com.lx.project.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -47,5 +48,10 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 自定义分页
      */
-    IPage<SysUser> getList(Page page, @Param("name") String name,@Param("id") Integer id);
+    IPage<SysUser> getList(Page page, @Param("acount") String acount,@Param("id") Integer id);
+
+    /**
+     * 自定义分页 含有角色的连表查询
+     */
+    IPage<UserRoleBean> getUserList(Page page, @Param("acount") String acount, @Param("id") Integer id);
 }

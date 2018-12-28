@@ -17,6 +17,23 @@
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
     </resultMap>
 
+    <resultMap id="getUserList" type="com.lx.project.domain.UserRoleBean">
+        <id column="id" jdbcType="INTEGER" property="Id" />
+        <result column="account" jdbcType="VARCHAR" property="account" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+        <result column="domain_name" jdbcType="VARCHAR" property="domainName" />
+        <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+        <result column="sex" jdbcType="INTEGER" property="sex" />
+        <result column="isactive" jdbcType="INTEGER" property="isactive" />
+        <result column="rname" jdbcType="VARCHAR" property="roleName" />
+        <result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    </resultMap>
+
     <resultMap id="CurrentUserResultMap" type="com.lx.project.base.CurrentUser">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="account" jdbcType="VARCHAR" property="domainName" />
@@ -66,5 +83,29 @@
       (select srm.sys_menu_id from tb_sys_user_role sur left join tb_sys_role_menu srm on sur.sys_role_id = srm.sys_role_id
        where sur.isactive = 1 and srm.isactive = 1 and sur.sys_user_id = #{userId} ) order by seq
     </select>
+
+    <select id="getList" resultMap="BaseResultMap">
+    SELECT * FROM tb_sys_user WHERE id &lt;&gt; #{id}
+        <if test="acount != null ">
+            and acount = #{acount}
+
+        </if>
+</select>
+
+    <select id="getUserList" resultMap="getUserList">
+        SELECT su.id,su.`account`,su.`password`,su.`mobile`,su.`name`,su.`birthday`,su.`email`,
+        su.`sex`,su.`domain_name`,su.`access_token`,su.`isactive`,su.`inserttime`,su.`updatetime`,sr.rname
+        FROM tb_sys_user su,`tb_sys_user_role` sur,`tb_sys_role` sr
+        WHERE su.id &lt;&gt; #{id}
+        and su.id = sur.`sys_user_id`
+        and sur.`sys_role_id` = sr.id
+        and su.isactive = 1
+        <if test="acount != null ">
+            and su.`account`  like '%${acount}%'
+
+        </if>
+    </select>
+
+
 
 </mapper>

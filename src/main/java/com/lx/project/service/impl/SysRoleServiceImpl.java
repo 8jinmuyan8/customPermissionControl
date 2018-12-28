@@ -1,10 +1,14 @@
 package com.lx.project.service.impl;
 
+import com.lx.project.domain.UserRoleList;
 import com.lx.project.entity.SysRole;
 import com.lx.project.mapper.SysRoleMapper;
 import com.lx.project.service.ISysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +20,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
-
+   @Autowired
+   SysRoleMapper roleMapper;
+    @Override
+    public List<UserRoleList> getAllUserRoleList() {
+        return roleMapper.getAllUserRoleList();
+    }
 }

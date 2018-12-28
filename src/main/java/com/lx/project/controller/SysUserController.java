@@ -8,6 +8,7 @@ import com.lx.project.BizException;
 import com.lx.project.base.CurrentUser;
 import com.lx.project.base.CurrentUserContext;
 import com.lx.project.domain.SysUserSignModel;
+import com.lx.project.domain.UserRoleBean;
 import com.lx.project.entity.SysMenu;
 import com.lx.project.entity.SysUser;
 import com.lx.project.service.ISysUserService;
@@ -83,12 +84,12 @@ public class SysUserController extends BaseController{
 
         String name = getString(request, "name");
 
-        IPage<SysUser> result = sysUserService.getList(new Page<>(page,pageSize),name,currentUser.getId());
+        IPage<UserRoleBean> result = sysUserService.getUserList(new Page<>(page,pageSize),name,currentUser.getId());
 
 
         Map<String, Object> data = new HashMap<>();
         data.put("list", result.getRecords());
         data.put("total", result.getTotal());
-        return JSONModel.buildSuccess("ok", result);
+        return JSONModel.buildSuccess("ok", data);
     }
 }

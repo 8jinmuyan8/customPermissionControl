@@ -24,4 +24,5 @@ import java.util.List;
 @RequestMapping("/sys/menu")
 public class SysMenuController {
 
+
 }

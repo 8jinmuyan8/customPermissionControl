@@ -1,25 +1,11 @@
-package com.lx.project.entity;
+package com.lx.project.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+
 import java.util.Date;
 
-
-/**
- * <p>
- * 系统用户
- * </p>
- *
- * @author LX
- * @since 2018-12-23
- */
-@TableName("tb_sys_user")
-public class SysUser implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class UserRoleBean {
     /**
      * ID
      */
@@ -85,6 +71,18 @@ public class SysUser implements Serializable {
      * 修改时间
      */
     private Date updatetime;
+    /**
+     * 角色名
+     */
+    private String roleName;
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public Integer getId() {
         return Id;
@@ -92,10 +90,6 @@ public class SysUser implements Serializable {
 
     public void setId(Integer id) {
         Id = id;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public String getAccount() {
@@ -138,6 +132,14 @@ public class SysUser implements Serializable {
         this.email = email;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     public Integer getSex() {
         return sex;
     }
@@ -168,14 +170,6 @@ public class SysUser implements Serializable {
 
     public void setIsactive(Integer isactive) {
         this.isactive = isactive;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
     }
 
     public Date getInserttime() {
