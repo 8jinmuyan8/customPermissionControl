@@ -76,6 +76,16 @@ public class UserRoleBean {
      */
     private String roleName;
 
+    private Integer roleID;
+
+    public Integer getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(Integer roleID) {
+        this.roleID = roleID;
+    }
+
     public String getRoleName() {
         return roleName;
     }

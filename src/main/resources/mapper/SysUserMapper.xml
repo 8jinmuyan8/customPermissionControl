@@ -30,6 +30,7 @@
         <result column="sex" jdbcType="INTEGER" property="sex" />
         <result column="isactive" jdbcType="INTEGER" property="isactive" />
         <result column="rname" jdbcType="VARCHAR" property="roleName" />
+        <result column="roleID" jdbcType="VARCHAR" property="roleID" />
         <result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
     </resultMap>
@@ -94,7 +95,7 @@
 
     <select id="getUserList" resultMap="getUserList">
         SELECT su.id,su.`account`,su.`password`,su.`mobile`,su.`name`,su.`birthday`,su.`email`,
-        su.`sex`,su.`domain_name`,su.`access_token`,su.`isactive`,su.`inserttime`,su.`updatetime`,sr.rname
+        su.`sex`,su.`domain_name`,su.`access_token`,su.`isactive`,su.`inserttime`,su.`updatetime`,sr.rname,sr.id roleID
         FROM tb_sys_user su,`tb_sys_user_role` sur,`tb_sys_role` sr
         WHERE su.id &lt;&gt; #{id}
         and su.id = sur.`sys_user_id`

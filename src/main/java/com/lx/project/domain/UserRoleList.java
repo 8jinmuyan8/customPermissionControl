@@ -1,23 +1,23 @@
 package com.lx.project.domain;
 
 public class UserRoleList {
-    private String id;
-    private String rname;
+    private Integer roleID;
+    private String roleName;
 
-    public String getRid() {
-        return id;
+    public Integer getRoleID() {
+        return roleID;
     }
 
-    public void setRid(String rid) {
-        this.id = rid;
+    public void setRoleID(Integer roleID) {
+        this.roleID = roleID;
     }
 
-    public String getRname() {
-        return rname;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRname(String rname) {
-        this.rname = rname;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }
 

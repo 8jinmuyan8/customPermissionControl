@@ -6,6 +6,6 @@
         <result column="rname" jdbcType="VARCHAR" property="rname" />
     </resultMap>
     <select id="getAllUserRoleList"  resultMap="RoleListResultMap">
-       select id,rname from `tb_sys_role` where isactive = 1
+       select id roleID,rname roleName from `tb_sys_role` where isactive = 1
 </select>
 </mapper>

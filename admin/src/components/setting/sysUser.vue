@@ -64,11 +64,11 @@
             <div slot="header">{{userModal.data.id == null?'新增':'编辑'}}用户</div>
             <div>
                 <Form :label-width="100" :model="userModal.data" ref="form" :rules="userModal.rules" :top="0.2">
-                    <FormItem label="用户名" prop="userName">
-                        <input type="text" v-model="userModal.data.userName"/>
+                    <FormItem label="账户名"  prop="account">
+                        <input type="text" v-model="userModal.data.account"/>
                     </FormItem>
-                    <FormItem label="昵称" prop="nickName">
-                        <input type="text" v-model="userModal.data.nickName"/>
+                    <FormItem label="名字"  prop="name">
+                        <input type="text" v-model="userModal.data.name"/>
                     </FormItem>
                     <FormItem label="密码" prop="password">
                         <input type="text"  v-model="userModal.data.password"/>
@@ -79,14 +79,11 @@
                     <FormItem label="性别" prop="sex">
                         <Radio v-model="userModal.data.sex" :datas="sexs"></Radio>
                     </FormItem>
-                    <FormItem label="封号状态" prop="ban">
-                        <div style="padding-top: 5px">
-                            <h-switch v-model="userModal.data.ban" :trueValue="1" :falseValue="0"
-                                      :small="true"></h-switch>
-                        </div>
+                    <FormItem label="生日" prop="birthday">
+                        <DatePicker v-model="userModal.data.birthday"></DatePicker>
                     </FormItem>
-                    <FormItem label="角色" prop="rname">
-                        <Select v-model="userModal.data.rid" keyName="rid" titleName="rname" :datas="roles"></Select>
+                    <FormItem label="角色" prop="roleID">
+                        <Select v-model="userModal.data.roleID" keyName="roleID" titleName="roleName" :datas="roles"></Select>
                     </FormItem>
 
                 </Form>
@@ -115,10 +112,10 @@
                 userModal: {
                     opened: false,
                     data: {
-                        id: '', userName: '', nickName: '', password: '', email: '', sex: '0', rid: '', ban: '0',rname:''
+                        id: '', account	:'',name: '', mobile: '', password: '', email: '', sex: '0', roleID: '',roleName:''
                     },
                     rules: {
-                        required: ['userName', 'password','nickName']
+                        required: ['account', 'password','roleID']
                     }
                 },
                 list: [],
@@ -183,27 +180,28 @@
             showAdd() {
                 this.userModal.opened = true;
                 this.userModal.data.id = null ;
-                this.userModal.data.userName = '';
-                this.userModal.data.nickName = '';
+                this.userModal.data.name = '';
+                this.userModal.data.account = '';
                 this.userModal.data.password = '';
                 this.userModal.data.email = '';
                 this.userModal.data.sex = '0';
-                this.userModal.data.ban = '0';
-                this.userModal.data.rname = '';
+                this.userModal.data.mobile = '';
+                this.userModal.data.roleID = '';
+                this.userModal.data.roleName = '';
                 this.userModal.data.accountDisabled = false;
             },
             showUpdate(item) {
                 this.userModal.opened = true;
                 this.userModal.data.id = item.id;
-                this.userModal.data.userName = item.userName;
-                this.userModal.data.nickName = item.nickName;
+                this.userModal.data.name = item.name;
+                this.userModal.data.account = item.account;
                 this.userModal.data.password = item.password;
                 this.userModal.data.email = item.email;
                 this.userModal.data.sex = item.sex;
-                this.userModal.data.ban = item.ban;
-                this.userModal.data.rid = item.rid;
-                this.userModal.data.rname = item.rname;
-                this.userModal.data.accountDisabled = true;
+                this.userModal.data.mobile = item.mobile;
+                this.userModal.data.roleID = item.roleID;
+                this.userModal.data.roleName = item.roleName;
+
             }, showDelete(item) {
                 this.$Confirm('确认要删除'+item.userName+'？').then(()=>{
                     fetch.post('/sys/user/delete', {'id': item.id}).then(res => {
