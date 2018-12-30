@@ -54,7 +54,7 @@ public class SysUser implements Serializable {
     /**
      * 生日 ‘1988-08-08’
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * 性别 0:女，1:男
@@ -170,11 +170,11 @@ public class SysUser implements Serializable {
         this.isactive = isactive;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

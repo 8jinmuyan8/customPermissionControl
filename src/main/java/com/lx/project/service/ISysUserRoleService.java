@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2018-12-23
  */
 public interface ISysUserRoleService extends IService<SysUserRole> {
-
+    void updateByUserId(Integer roleId,Integer userId);
 }

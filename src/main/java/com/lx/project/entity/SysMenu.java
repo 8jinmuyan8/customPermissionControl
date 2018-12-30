@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -58,12 +59,12 @@ public class SysMenu implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime inserttime;
+    private Date inserttime;
 
     /**
      * 修改时间
      */
-    private LocalDateTime updatetime;
+    private Date updatetime;
 
     public Integer getId() {
         return id;
@@ -124,18 +125,19 @@ public class SysMenu implements Serializable {
         this.isactive = isactive;
     }
 
-    public LocalDateTime getInserttime() {
+    public Date getInserttime() {
         return inserttime;
     }
 
-    public void setInserttime(LocalDateTime inserttime) {
+    public void setInserttime(Date inserttime) {
         this.inserttime = inserttime;
     }
-    public LocalDateTime getUpdatetime() {
+
+    public Date getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(LocalDateTime updatetime) {
+    public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
     }
 

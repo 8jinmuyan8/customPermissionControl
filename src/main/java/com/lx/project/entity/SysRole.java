@@ -1,8 +1,11 @@
 package com.lx.project.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -16,7 +19,8 @@ import java.io.Serializable;
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
     /**
      * 角色名称
      */
@@ -40,20 +44,13 @@ public class SysRole implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime inserttime;
+    private Date inserttime;
 
     /**
      * 修改时间
      */
-    private LocalDateTime updatetime;
+    private Date updatetime;
 
-    public String getName() {
-        return rname;
-    }
-
-    public void setName(String name) {
-        this.rname = name;
-    }
     public String getDescription() {
         return description;
     }
@@ -72,28 +69,46 @@ public class SysRole implements Serializable {
         return isactive;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getRname() {
+        return rname;
+    }
+
+    public void setRname(String rname) {
+        this.rname = rname;
+    }
+
     public void setIsactive(Boolean isactive) {
         this.isactive = isactive;
     }
-    public LocalDateTime getInserttime() {
+
+    public Date getInserttime() {
         return inserttime;
     }
 
-    public void setInserttime(LocalDateTime inserttime) {
+    public void setInserttime(Date inserttime) {
         this.inserttime = inserttime;
     }
-    public LocalDateTime getUpdatetime() {
+
+    public Date getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(LocalDateTime updatetime) {
+    public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
     }
 
     @Override
     public String toString() {
         return "SysRole{" +
-        "name=" + rname +
+
         ", description=" + description +
         ", domainName=" + domainName +
         ", isactive=" + isactive +

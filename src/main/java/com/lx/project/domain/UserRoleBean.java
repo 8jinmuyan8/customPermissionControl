@@ -40,17 +40,13 @@ public class UserRoleBean {
     /**
      * 生日 ‘1988-08-08’
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * 性别 0:女，1:男
      */
     private Integer sex;
 
-    /**
-     * 登录token
-     */
-    private String accessToken;
 
     /**
      * 操作人
@@ -142,11 +138,11 @@ public class UserRoleBean {
         this.email = email;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -158,13 +154,7 @@ public class UserRoleBean {
         this.sex = sex;
     }
 
-    public String getAccessToken() {
-        return accessToken;
-    }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
 
     public String getDomainName() {
         return domainName;

@@ -27,17 +27,20 @@
             </Form>
 
             <Table :datas="list" stripe>
-                <TableItem title="角色ID"  prop="rid" :width="180"></TableItem>
-                <TableItem title="角色名"  prop="rname"></TableItem>
-                <TableItem title="角色描述" prop="rdesc">
+                <TableItem title="No." :width="50">
+                    <template slot-scope="props">{{props.index + 1}}</template>
                 </TableItem>
-                <TableItem title="角色值"  prop="rval"></TableItem>
+                <TableItem title="角色名"  prop="rname"></TableItem>
+                <TableItem title="角色描述" prop="description">
+                </TableItem>
+                <TableItem title="操作人"  prop="domainName"></TableItem>
                 <TableItem title="创建时间" prop="inserttime"></TableItem>
                 <TableItem title="更新时间"  prop="updatetime"></TableItem>
                 <TableItem title="操作">
                     <template slot-scope="props">
                         <button class="h-btn h-btn-s" @click="showUpdate(props.data)"><i class="h-icon-edit"></i> 编辑
                         </button>
+                        <button class="h-btn h-btn-s" @click="showMenu(props.data)"><i class="h-icon-setting"></i><span>菜单权限</span></button>
                         <button class="h-btn h-btn-s h-btn-text-red" @click="showDelete(props.data)"><i
                                 class="h-icon-trash"></i> 删除
                         </button>
@@ -57,18 +60,25 @@
                     <FormItem label="角色名" prop="rname">
                         <input type="text" v-model="roleModal.data.rname"/>
                     </FormItem>
-                    <FormItem label="角色描述" prop="rdesc">
-                        <textarea type="text" v-model="roleModal.data.rdesc"/>
+                    <FormItem label="角色描述" prop="description">
+                        <textarea type="text" v-model="roleModal.data.description"/>
                     </FormItem>
-                    <FormItem label="角色值" prop="rval">
-                        <input type="text"  v-model="roleModal.data.rval"/>
-                    </FormItem>
-
                 </Form>
             </div>
             <div slot="footer">
                 <button class="h-btn" @click="roleModal.opened = false">取消</button>
                 <button class="h-btn h-btn-primary" @click="doSave">确定</button>
+            </div>
+        </Modal>
+
+        <Modal v-model="menuModal.opened" :close-on-mask="false" :has-divider="true" :hasCloseIcon="true">
+            <div slot="header">[{{menuModal.rname}}]菜单权限</div>
+            <div>
+                <Tree :option="menuModal.menuTree" ref="menuTree" :multiple="true" v-model="menuModal.data" choose-mode="some"></Tree>
+            </div>
+            <div slot="footer">
+                <button class="h-btn" @click="menuModal.opened = false">取消</button>
+                <button class="h-btn h-btn-primary" @click="menuConfirm">确定</button>
             </div>
         </Modal>
 
@@ -87,10 +97,23 @@
                 roleModal: {
                     opened: false,
                     data: {
-                        rid: '', rname: '', rdesc: '',rval: '', inserttime: '', updatetime: ''
+                        id: '', rname: '', description:'',domainName: '', inserttime: '', updatetime: ''
                     }
 
                 },
+              menuModal: {
+                opened: false,
+                roleID: '',
+                rname: '',
+                data: [],
+                menuTree: {
+                  keyName: 'id',
+                  parentName: 'parentId',
+                  titleName: 'name',
+                  dataMode: 'list',
+                  datas: []
+                }
+              },
                 list: [],
 
             }
@@ -102,18 +125,29 @@
             init() {
 
                 this.loadData();
+              fetch.get('/sys/menu/list').then(res=>{
+                if ('000000' == res.code) {
+                  let list = res.result;
+                  for (let i in list) {
+                    let item = list[i];
+                    item.treeIcon = item.icon;
+                  }
+                  this.menuModal.menuTree.datas = list;
+                }
+              });
+
             },
             loadData() {
                 fetch.post('/sys/role/list', this.search).then(res => {
-                    log(res)
-                    if (200 == res.code) {
-                        let result = res.message;
+                    if ("000000" == res.code) {
+                        let result = res.result;
                         let list = result.list;
                         this.list = null == list ? [] : list;
                         this.search.total = result.total;
                         log(this.list)
                     }
                 });
+
             },
             doSearch() {
                 this.search.page = 1;
@@ -124,34 +158,60 @@
                 let data = this.roleModal.data;
 
                 fetch.post('/sys/role/save', data).then(res => {
-                    this.$Message(res.message);
+                    this.$Message(res.msg);
                     log(res);
-                    if (200 == res.code) {
+                    if ("000000" == res.code) {
                         this.roleModal.opened = false;
                         this.loadData();
                     }
                 });
-            },
+            }, menuConfirm() {
+            let ids = '';
+            let arr = this.menuModal.data;
+            for (let i in arr) {
+              ids += arr[i]+',';
+            }
+            let p = {roleID:this.menuModal.roleID,menuIds:ids};
+            fetch.post('/sys/role/authMenus',p).then(res=>{
+              this.$Message(res.msg);
+              if ('000000' == res.code) {
+                this.menuModal.opened = false;
+              }
+            });
+          },
+          showMenu(data) {
+            this.menuModal.opened = true;
+            this.menuModal.roleID = data.id;
+            this.menuModal.rname = data.rname;
+            this.menuModal.data = [];
+            // 当前选中的
+            fetch.get('/sys/role/menuIds?roleID=' + data.id).then(res=>{
+              if ('000000' == res.code) {
+                this.menuModal.data = res.result;
+                this.$refs.menuTree.refresh();
+              }
+            });
+          },
             showAdd() {
                 this.roleModal.opened = true;
-                this.roleModal.data.rid = null;
+                this.roleModal.data.id = null;
                 this.roleModal.data.rname = '';
-                this.roleModal.data.rdesc = '';
-                this.roleModal.data.rval = '';
+                this.roleModal.data.description = '';
+
 
             },
             showUpdate(item) {
                 this.roleModal.opened = true;
-                this.roleModal.data.rid = item.rid;
+                this.roleModal.data.id = item.id;
                 this.roleModal.data.rname = item.rname;
-                this.roleModal.data.rdesc = item.rdesc;
-                this.roleModal.data.rval = item.rval;
+                this.roleModal.data.description = item.description;
+
 
             }, showDelete(item) {
                 this.$Confirm('确认要删除'+item.rname+'？').then(()=>{
                     fetch.post('/sys/role/delete', {'rid': item.rid}).then(res => {
-                        this.$Message(res.message);
-                        if (200 == res.code) {
+                        this.$Message(res.msg);
+                        if ("000000" == res.code) {
                             this.roleModal.opened = false;
                             this.loadData();
                         }

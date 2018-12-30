@@ -44,6 +44,7 @@
                 <TableItem title="密码"  prop="password"></TableItem>
                 <TableItem title="邮箱" prop="email"></TableItem>
                 <TableItem title="角色"  prop="roleName"></TableItem>
+                <TableItem title="操作人"  prop="domainName"></TableItem>
                 <TableItem title="操作">
                     <template slot-scope="props">
                         <button class="h-btn h-btn-s" @click="showUpdate(props.data)"><i class="h-icon-edit"></i> 编辑
@@ -112,7 +113,7 @@
                 userModal: {
                     opened: false,
                     data: {
-                        id: '', account	:'',name: '', mobile: '', password: '', email: '', sex: '0', roleID: '',roleName:''
+                        id: '', account	:'',name: '', mobile: '', password: '', email: '', sex: '0', roleID: '',roleName:'',birthday:''
                     },
                     rules: {
                         required: ['account', 'password','roleID']
@@ -168,9 +169,9 @@
                 }
 
                 fetch.post('/sys/user/save', data).then(res => {
-                    this.$Message(res.message);
+                    this.$Message(res.msg);
                     log(res);
-                    if (200 == res.code) {
+                    if ("000000" == res.code) {
                         this.userModal.opened = false;
                         this.loadData();
                     }
@@ -188,6 +189,7 @@
                 this.userModal.data.mobile = '';
                 this.userModal.data.roleID = '';
                 this.userModal.data.roleName = '';
+              this.userModal.data.birthday = '';
                 this.userModal.data.accountDisabled = false;
             },
             showUpdate(item) {
@@ -201,12 +203,13 @@
                 this.userModal.data.mobile = item.mobile;
                 this.userModal.data.roleID = item.roleID;
                 this.userModal.data.roleName = item.roleName;
+                this.userModal.data.birthday = item.birthday;
 
             }, showDelete(item) {
-                this.$Confirm('确认要删除'+item.userName+'？').then(()=>{
+                this.$Confirm('确认要删除'+item.account+'？').then(()=>{
                     fetch.post('/sys/user/delete', {'id': item.id}).then(res => {
-                        this.$Message(res.message);
-                        if (200 == res.code) {
+                        this.$Message(res.msg);
+                        if ("000000" == res.code) {
                             this.userModal.opened = false;
                             this.loadData();
                         }

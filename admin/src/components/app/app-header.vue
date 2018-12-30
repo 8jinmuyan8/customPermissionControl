@@ -94,10 +94,11 @@ export default {
   data() {
     return {
       searchText: '',
-      name:'lx',
+      name:'',
       infoMenu: [
-        { key: "info", title: "个人信息", icon: "h-icon-user" },
-        { key: "logout", title: "退出登录", icon: "h-icon-outbox" }
+        { key: 'info', title: '个人信息', icon: 'h-icon-user' },
+        { key: 'updatePassword', title: '修改密码', icon: 'h-icon-edit' },
+        { key: 'logout', title: '退出登录', icon: 'h-icon-outbox' },
       ]
     };
   },
@@ -106,10 +107,26 @@ export default {
   },
   methods: {
     trigger(data) {
-      if (data == "logout") {
-        this.$router.replace("/login");
+      if (data == 'logout') {
+        fetch.get('/sys/user/signOut').then(res=>{
+          this.$Message(res.msg);
+          if ('000000' == res.code) {
+            window.localStorage.removeItem('token');
+            this.$store.dispatch('getSignInStatus', false);
+          }
+        });
+      } else if (data == 'info') {
+        this.$router.push('/profile')
+      } else if (data == 'updatePassword') {
+        this.$router.push('/sys/updatePassword')
       }
     }
+  },created(){
+    fetch.get('/sys/user/info').then(res=>{
+      if ('000000' == res.code) {
+        this.name = res.result.account
+      }
+    });
   }
 };
 </script>

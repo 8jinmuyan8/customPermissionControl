@@ -105,4 +105,34 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public IPage<UserRoleBean> getUserList(Page page, String acount, Integer id) {
         return userMapper.getUserList(page,acount,id);
     }
+
+    @Override
+    public void deleteUserById(Integer userId) {
+
+        boolean execute =  userMapper.deleteUserById(userId);
+
+     if (!execute){
+         throw  new BizException("删除失败！");
+     }
+    }
+
+    @Override
+    public UserRoleBean info(Integer userId) {
+        return userMapper.info(userId);
+    }
+
+    @Override
+    public void updatePassword(Integer sysUserId, String oldPwd, String newPwd) {
+        // 验证之前的密码，并设置失效
+        boolean execute = userMapper.updateCheckPassword(sysUserId,oldPwd);
+        if (!execute){
+            throw new BizException("原密码错误");
+        }
+
+        // 设置新密码
+        SysUser sysUser = new SysUser();
+        sysUser.setId(sysUserId);
+        sysUser.setPassword(newPwd);
+        userMapper.updateById(sysUser);
+    }
 }

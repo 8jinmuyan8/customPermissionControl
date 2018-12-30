@@ -4,6 +4,7 @@ import com.lx.project.entity.SysUserRole;
 import com.lx.project.mapper.SysUserRoleMapper;
 import com.lx.project.service.ISysUserRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +17,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {
-
+    @Autowired
+    SysUserRoleMapper userRoleMapper;
+    @Override
+    public void updateByUserId(Integer roleId, Integer userId) {
+        userRoleMapper.updateByUserId(roleId,userId);
+    }
 }

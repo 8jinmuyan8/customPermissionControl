@@ -54,4 +54,16 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 自定义分页 含有角色的连表查询
      */
     IPage<UserRoleBean> getUserList(Page page, @Param("acount") String acount, @Param("id") Integer id);
+    /**
+     * 物理删除 通过ID
+     */
+    Boolean deleteUserById(@Param("userId") Integer userId);
+    /**
+     * 通过ID查询个人信息
+     */
+    UserRoleBean info(@Param("userId") Integer userId);
+    /**
+     * 检验密码是否正确
+     */
+    Boolean updateCheckPassword(@Param("sysUserId") Integer sysUserId, @Param("oldPwd") String oldPwd);
 }

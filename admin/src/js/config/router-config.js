@@ -18,6 +18,16 @@ const initRouter = () => {
         name: 'Home',
         component: (resolve) => require(['components/welcome/home'], resolve),
         meta: {title: '首页', icon: 'icon-monitor'}
+      },{
+        path: '/profile',
+        name: '/profile',
+        component: (resolve) => require(['components/sys/profile'], resolve),
+        meta: {title: '个人信息', icon: 'h-icon-user'}
+      },{
+        path: '/sys/updatePassword',
+        name: '/sys/updatePassword',
+        component: (resolve) => require(['components/sys/updatePassword'], resolve),
+        meta: {title: '更改密码', icon: 'h-icon-edit'}
       }, {
           path: '/sys/user',
           name: '/sys/user',
@@ -27,7 +37,12 @@ const initRouter = () => {
           path: '/sys/role',
           name: '/sys/role',
           component: (resolve) => require(['components/setting/sysRole'], resolve),
-          meta: {title: '用户管理', icon: 'h-icon-users'}
+          meta: {title: '角色管理', icon: 'h-icon-users'}
+      }, {
+        path: '/sys/menu',
+        name: '/sys/menu',
+        component: (resolve) => require(['components/setting/menu'], resolve),
+        meta: {title: '菜单管理', icon: 'h-icon-menu'}
       }, {
         path: '/form',
         name: 'form',

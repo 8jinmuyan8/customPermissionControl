@@ -11,7 +11,10 @@ import com.lx.project.domain.SysUserSignModel;
 import com.lx.project.domain.UserRoleBean;
 import com.lx.project.entity.SysMenu;
 import com.lx.project.entity.SysUser;
+import com.lx.project.entity.SysUserRole;
+import com.lx.project.service.ISysUserRoleService;
 import com.lx.project.service.ISysUserService;
+import com.lx.project.utils.DateUtils;
 import com.lx.project.utils.JSONModel;
 import com.lx.project.utils.WebUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +44,17 @@ public class SysUserController extends BaseController{
 
     @Autowired
     private ISysUserService sysUserService;
+
+    @Autowired
+    private ISysUserRoleService userRoleService;
+
+    @GetMapping("/info")
+    public JSONModel info() {
+        CurrentUser currentUser = CurrentUserContext.get();
+        UserRoleBean user = sysUserService.info(currentUser.getId());
+        return JSONModel.buildSuccess("ok", user);
+    }
+
     @PostMapping("/signIn")
     public JSONModel signIn(HttpServletRequest request) {
 
@@ -91,5 +105,107 @@ public class SysUserController extends BaseController{
         data.put("list", result.getRecords());
         data.put("total", result.getTotal());
         return JSONModel.buildSuccess("ok", data);
+    }
+
+    @PostMapping("/save")
+    public JSONModel save(HttpServletRequest request) {
+        CurrentUser currentUser = new CurrentUser();
+        int sex = 0;
+        int id = 0 ;
+
+        String executeStatus = null;
+        String roleID = null;
+
+        String account = getNotBlankString(request,"account","账户名不为空");
+        String name = getNotBlankString(request,"name","姓名不为空");
+        String password = getNotBlankString(request,"password","密码不为空");
+        String email = getString(request,"email");
+        String mobile = getString(request,"mobile");
+        String birthday = getString(request,"birthday");
+        roleID = getString(request,"roleID");
+
+        String string_id = request.getParameter("id");
+        try {
+            sex = getInt(request,"sex");
+            if (!string_id.isEmpty()){
+                id = Integer.parseInt(string_id);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //新增用户必须选择角色
+        if (id == 0)
+        {
+            roleID = getNotBlankString(request,"roleID","请选择用户角色");
+        }
+
+        SysUser sysUser = new SysUser();
+        SysUserRole userRole =new SysUserRole();
+        sysUser.setId(id);
+        sysUser.setName(name);
+        sysUser.setPassword(password);
+        sysUser.setEmail(email);
+        sysUser.setSex(sex);
+        sysUser.setBirthday(birthday);
+        sysUser.setDomainName(currentUser.getDomainName());
+
+        userRole.setSysRoleId(Integer.parseInt(roleID));
+        userRole.setSysUserId(id);
+
+        if (id == 0) {
+            //新增用户逻辑
+            boolean execute = sysUserService.save(sysUser);
+            userRole.setSysUserId(sysUser.getId());
+            //关联角色用户表
+            boolean executeRole = userRoleService.save(userRole);
+
+            if (!execute && !executeRole ){
+                throw new BizException("新增用户失败！");
+            }
+            executeStatus = "新增用户成功！";
+
+        }else {
+            //编辑用户逻辑
+            boolean execute = sysUserService.updateById(sysUser);
+            if (userRole.getSysRoleId() != null){
+                userRoleService.updateByUserId(userRole.getSysRoleId(),userRole.getSysUserId());
+            }
+
+
+            if (!execute){
+                throw new BizException("编辑用户失败！");
+            }
+            executeStatus = "编辑用户成功！";
+        }
+
+        return JSONModel.buildSuccess(executeStatus);
+    }
+
+    @PostMapping("/delete")
+    public JSONModel userDelete(HttpServletRequest request){
+
+        int id = 0;
+
+        try {
+            id = getInt(request,"id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        sysUserService.deleteUserById(id);
+
+        return JSONModel.buildSuccess("删除数据成功");
+    }
+
+    @PostMapping("/updatePassword")
+    public JSONModel updatePassword(HttpServletRequest request) {
+        String oldPwd = getNotBlankString(request, "oldPwd", "原密码不能为空");
+        String newPwd = getNotBlankString(request, "newPwd", "新密码不能为空");
+        CurrentUser currentUser = CurrentUserContext.get();
+
+        sysUserService.updatePassword(currentUser.getId(), oldPwd, newPwd);
+
+        return JSONModel.buildSuccess("修改成功，请重新登录");
+
     }
 }

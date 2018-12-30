@@ -1,10 +1,12 @@
 package com.lx.project.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.domain.UserRoleList;
 import com.lx.project.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+
+
 
 import java.util.List;
 
@@ -19,4 +21,24 @@ import java.util.List;
 
 public interface ISysRoleService extends IService<SysRole> {
     List<UserRoleList> getAllUserRoleList();
+    /**
+     * 角色分页查询
+     */
+    IPage<SysRole> selectRoleList(Page page, String  rname);
+    /**
+     * 根据id删除角色
+     */
+    void deleteRoleByRid(Integer roleID);
+    /**
+     * 通过ID拿到菜单
+     */
+    List<Integer> listMenuByRoleId( Integer roleId);
+
+    /**
+     *菜单权限保存
+     * @param domainName
+     * @param roleId
+     * @param menuIds
+     */
+    void authMenus(String domainName, int roleId, List<Integer> menuIds);
 }

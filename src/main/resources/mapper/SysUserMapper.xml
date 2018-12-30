@@ -8,7 +8,6 @@
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="email" jdbcType="VARCHAR" property="email" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
         <result column="domain_name" jdbcType="VARCHAR" property="domainName" />
         <result column="birthday" jdbcType="VARCHAR" property="birthday" />
         <result column="sex" jdbcType="INTEGER" property="sex" />
@@ -24,7 +23,6 @@
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="email" jdbcType="VARCHAR" property="email" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
         <result column="domain_name" jdbcType="VARCHAR" property="domainName" />
         <result column="birthday" jdbcType="VARCHAR" property="birthday" />
         <result column="sex" jdbcType="INTEGER" property="sex" />
@@ -61,7 +59,7 @@
     <select id="selectByAccount" parameterType="string" resultMap="BaseResultMap">
         select *
         from tb_sys_user
-        where  account = #{account}
+        where  account = #{account} and isactive = 1
     </select>
 
     <select id="queryByAccessToken" parameterType="string" resultMap="CurrentUserResultMap">
@@ -73,7 +71,7 @@
     <select id="signIn" parameterType="string" resultMap="UserSignResultMap">
         select id,access_token
         from tb_sys_user
-        where  account = #{account} and password = #{password}
+        where  account = #{account} and password = #{password} and isactive = 1
     </select>
     <update id="signOut" parameterType="int">
        update tb_sys_user set access_token = null where id = #{userId}
@@ -86,7 +84,7 @@
     </select>
 
     <select id="getList" resultMap="BaseResultMap">
-    SELECT * FROM tb_sys_user WHERE id &lt;&gt; #{id}
+    SELECT * FROM tb_sys_user WHERE id &lt;&gt; #{id} and isactive = 1
         <if test="acount != null ">
             and acount = #{acount}
 
@@ -107,6 +105,19 @@
         </if>
     </select>
 
+    <update id="deleteUserById" parameterType="int">
+        update tb_sys_user set isactive = 0 where id = #{userId}
+    </update>
 
+    <select id="info" parameterType="int" resultMap="getUserList">
+        select su.*,sr.id roleID,sr.rname
+        from tb_sys_user su
+        left join tb_sys_user_role sur on su.id = sur.sys_user_id
+        left join tb_sys_role sr on sr.id = sur.sys_role_id
+        where sur.isactive = 1 and su.isactive = 1 and su.id = #{userId}
+    </select>
 
+    <update id="updateCheckPassword" >
+       update tb_sys_user_pwd set isactive = 0 where pwd = #{oldPwd} and sys_user_id = #{sysUserId} and isactive = 1
+    </update>
 </mapper>

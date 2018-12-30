@@ -5,7 +5,32 @@
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="rname" jdbcType="VARCHAR" property="rname" />
     </resultMap>
+
+    <resultMap id="BaseResultMap" type="com.lx.project.entity.SysRole">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="rname" jdbcType="VARCHAR" property="rname" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="isactive" jdbcType="INTEGER" property="isactive" />
+        <result column="domain_name" jdbcType="VARCHAR" property="domainName" />
+        <result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    </resultMap>
+
     <select id="getAllUserRoleList"  resultMap="RoleListResultMap">
        select id roleID,rname roleName from `tb_sys_role` where isactive = 1
 </select>
+    <select id="selectRoleList" parameterType="string" resultMap="BaseResultMap">
+      select * from tb_sys_role where isactive = 1
+      <if test="rname != null ">
+        and rname = #{rname}
+      </if>
+    </select>
+
+    <update id="deleteRoleByRid" parameterType="int">
+        update tb_sys_role set isactive = 0 where id = #{roleID}
+    </update>
+
+    <select id="listMenuByRoleId" parameterType="int" resultType="int">
+        select sys_menu_id from tb_sys_role_menu where sys_role_id = #{roleId} and isactive = 1
+    </select>
 </mapper>

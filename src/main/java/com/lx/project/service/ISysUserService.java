@@ -50,5 +50,18 @@ public interface ISysUserService extends IService<SysUser> {
      * 自定义分页 含有角色的连表查询
      */
     IPage<UserRoleBean> getUserList(Page page,String acount, Integer id);
+    /**
+     * 物理删除 通过ID
+     */
+    void deleteUserById( Integer userId);
+    /**
+     * 通过ID查询个人信息
+     */
+    UserRoleBean info( Integer userId);
+
+    /**
+     * 更新密码
+     */
+    void updatePassword( Integer sysUserId,  String oldPwd,String newPwd);
 
 }

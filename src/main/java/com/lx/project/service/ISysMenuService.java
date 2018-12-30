@@ -14,5 +14,9 @@ import java.util.List;
  * @since 2018-12-23
  */
 public interface ISysMenuService extends IService<SysMenu> {
+    List<SysMenu>  getMenuList();
 
+    void saveMenu( SysMenu sysMenu);
+
+    void del(String domainName, Integer id);
 }

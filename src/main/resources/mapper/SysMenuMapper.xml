@@ -13,5 +13,11 @@
         <result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
     </resultMap>
+     <select id="getMenuList" resultMap="BaseResultMap">
+         select * from tb_sys_menu where isactive = 1 order by seq
+     </select>
 
+    <select id="countParentId" parameterType="int" resultType="int">
+        select count(*) from tb_sys_menu where parent_id = #{parentId} and isactive = 1
+    </select>
 </mapper>
