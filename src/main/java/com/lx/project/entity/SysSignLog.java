@@ -1,8 +1,11 @@
 package com.lx.project.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -16,7 +19,8 @@ import java.io.Serializable;
 public class SysSignLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
     /**
      * 用户名
      */
@@ -40,17 +44,33 @@ public class SysSignLog implements Serializable {
     /**
      * 删除标志
      */
-    private Boolean isactive;
+    private Integer isactive;
 
     /**
      * 创建时间
      */
-    private LocalDateTime inserttime;
+    private Date inserttime;
 
     /**
      * 修改时间
      */
-    private LocalDateTime updatetime;
+    private Date updatetime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setInserttime(Date inserttime) {
+        this.inserttime = inserttime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
 
     public String getUsername() {
         return username;
@@ -80,26 +100,21 @@ public class SysSignLog implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
-    public Boolean getIsactive() {
+
+    public Integer getIsactive() {
         return isactive;
     }
 
-    public void setIsactive(Boolean isactive) {
+    public void setIsactive(Integer isactive) {
         this.isactive = isactive;
     }
-    public LocalDateTime getInserttime() {
+
+    public Date getInserttime() {
         return inserttime;
     }
 
-    public void setInserttime(LocalDateTime inserttime) {
-        this.inserttime = inserttime;
-    }
-    public LocalDateTime getUpdatetime() {
+    public Date getUpdatetime() {
         return updatetime;
-    }
-
-    public void setUpdatetime(LocalDateTime updatetime) {
-        this.updatetime = updatetime;
     }
 
     @Override

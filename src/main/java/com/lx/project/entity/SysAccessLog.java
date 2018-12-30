@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -51,27 +52,27 @@ public class SysAccessLog implements Serializable {
     /**
      * 开始时间
      */
-    private LocalDateTime startTime;
+    private Date startTime;
 
     /**
      * 结束时间
      */
-    private LocalDateTime endTime;
+    private Date endTime;
 
     /**
      * 删除标志
      */
-    private Boolean isactive;
+    private Integer isactive;
 
     /**
      * 创建时间
      */
-    private LocalDateTime inserttime;
+    private Date inserttime;
 
     /**
      * 修改时间
      */
-    private LocalDateTime updatetime;
+    private Date updatetime;
 
     public Integer getId() {
         return Id;
@@ -116,39 +117,44 @@ public class SysAccessLog implements Serializable {
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
     }
-    public LocalDateTime getStartTime() {
+
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
-    public LocalDateTime getEndTime() {
+
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
-    public Boolean getIsactive() {
+
+    public Integer getIsactive() {
         return isactive;
     }
 
-    public void setIsactive(Boolean isactive) {
+    public void setIsactive(Integer isactive) {
         this.isactive = isactive;
     }
-    public LocalDateTime getInserttime() {
+
+    public Date getInserttime() {
         return inserttime;
     }
 
-    public void setInserttime(LocalDateTime inserttime) {
+    public void setInserttime(Date inserttime) {
         this.inserttime = inserttime;
     }
-    public LocalDateTime getUpdatetime() {
+
+    public Date getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(LocalDateTime updatetime) {
+    public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
     }
 

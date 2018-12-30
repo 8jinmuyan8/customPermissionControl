@@ -1,5 +1,7 @@
 package com.lx.project.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.entity.SysAccessLog;
 import com.lx.project.mapper.SysAccessLogMapper;
 import com.lx.project.service.ISysAccessLogService;
@@ -41,7 +43,7 @@ public class SysAccessLogServiceImpl extends ServiceImpl<SysAccessLogMapper, Sys
             }
 
             log.setUserAgent(userAgent);
-            log.setStartTime(LocalDateTime.now());
+            log.setStartTime(new Date());
             accessLogMapper.insert(log);
             return log.getId();
         } catch (Exception e) {
@@ -58,5 +60,10 @@ public class SysAccessLogServiceImpl extends ServiceImpl<SysAccessLogMapper, Sys
     @Override
     public void updateAccountById(int id, String account) {
         accessLogMapper.updateAccountById(id,account);
+    }
+
+    @Override
+    public IPage<SysAccessLog> getAccessLogList(Page page, String acount) {
+        return accessLogMapper.getAccessLogList(page,acount);
     }
 }

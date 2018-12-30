@@ -1,9 +1,12 @@
 package com.lx.project.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.entity.SysSignLog;
 import com.lx.project.mapper.SysSignLogMapper;
 import com.lx.project.service.ISysSignLogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +19,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysSignLogServiceImpl extends ServiceImpl<SysSignLogMapper, SysSignLog> implements ISysSignLogService {
-
+    @Autowired
+    SysSignLogMapper signLogMapper;
+    @Override
+    public IPage<SysSignLog> getSignLogList(Page page, String account) {
+        return signLogMapper.getSignLogList(page,account);
+    }
 }

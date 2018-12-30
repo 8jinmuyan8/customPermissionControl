@@ -3,7 +3,6 @@ import App from 'components/App.vue';
 
 import heyuiConfig from 'js/config/heyui-config';
 import routerConfig from 'js/config/router-config';
-import 'js/vue/components';
 import store from './js/common/store'
 
 require('./css/app.less');

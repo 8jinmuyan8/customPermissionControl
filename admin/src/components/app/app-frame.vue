@@ -7,7 +7,7 @@
       <appHead></appHead>
       <appMenu></appMenu>
       <SysTabs v-if="showSystab" homePage="Home"></SysTabs>
-      <div class="app-body">
+      <div class="app-body" style="padding-top: 60px">
         <!-- <keep-alive> -->
           <router-view></router-view>
         <!-- </keep-alive> -->

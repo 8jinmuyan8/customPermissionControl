@@ -1,5 +1,7 @@
 package com.lx.project.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.entity.SysAccessLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -22,4 +24,9 @@ public interface SysAccessLogMapper extends BaseMapper<SysAccessLog> {
     void updateEndTime(@Param("localDateTime")LocalDateTime localDateTime,@Param("id") int id);
 
     void updateAccountById(@Param("id") int id, @Param("account") String account);
+
+    /**
+     * 自定义分页
+     */
+    IPage<SysAccessLog> getAccessLogList(Page page, @Param("acount") String acount);
 }

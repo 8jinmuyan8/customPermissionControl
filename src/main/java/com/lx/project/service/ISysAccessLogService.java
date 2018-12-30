@@ -1,5 +1,7 @@
 package com.lx.project.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lx.project.entity.SysAccessLog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -19,4 +21,9 @@ public interface ISysAccessLogService extends IService<SysAccessLog> {
     void updateEndTime(LocalDateTime localDateTime,int id);
 
     void updateAccountById(int id, String account);
+
+    /**
+     * 自定义分页
+     */
+    IPage<SysAccessLog> getAccessLogList(Page page,  String acount);
 }
