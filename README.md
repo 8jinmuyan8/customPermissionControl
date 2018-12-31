@@ -28,7 +28,7 @@ https://github.com/heyui/heyui-admin
 
 ##图片参考  
  
- ![登录界面](/pic/1.png)
+ ![登录界面](pic/1.png)
  
  ![角色管理](pic/2.png)
  
