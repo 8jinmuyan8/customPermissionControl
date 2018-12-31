@@ -6,14 +6,16 @@ import store from './store.js';
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   let token = window.localStorage.getItem('token');
-  config.headers['X-Token'] = token;
+  if(token != null) {
+    config.headers['X-Token'] = token;
+  }
   // 在发送请求之前做些什么
   if (config.method == 'get') {
     HeyUI.$LoadingBar.start();
   } else {
     HeyUI.$Loading("加载中");
   }
-  
+
   return config;
 }, function (error) {
   // 对请求错误做些什么
@@ -91,7 +93,7 @@ module.exports = {
         link.href = url;
         let filename = res.headers['content-disposition'];
         filename = filename.substr(filename.indexOf('=') + 1);
-        link.setAttribute('download', filename); 
+        link.setAttribute('download', filename);
         document.body.appendChild(link);
         link.click();
       });

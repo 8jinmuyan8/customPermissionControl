@@ -30,7 +30,6 @@ module.exports = {
       HeyUI: 'heyui',
       G: 'hey-global',
       log: 'hey-log',
-      R: './src/js/common/request',
       fetch:'./src/js/common/fetch'
     },
     devServer: {
@@ -45,5 +44,5 @@ module.exports = {
     globalVars: './src/css/var.less',
     externals: {}
   },
-  copy: ['static/images/*', 'call/*', './baidu_verify_7O2vpVMzwg.html']
+  copy: ['static/*']
 };

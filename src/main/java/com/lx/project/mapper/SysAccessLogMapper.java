@@ -28,5 +28,5 @@ public interface SysAccessLogMapper extends BaseMapper<SysAccessLog> {
     /**
      * 自定义分页
      */
-    IPage<SysAccessLog> getAccessLogList(Page page, @Param("acount") String acount);
+    IPage<SysAccessLog> getAccessLogList(Page page, @Param("account") String account);
 }

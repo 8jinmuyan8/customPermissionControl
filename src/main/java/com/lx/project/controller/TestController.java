@@ -10,23 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-@RequestMapping
-@RestController
-public class TestController extends BaseController {
-    @Autowired
-    ISysUserService userService;
-
-    @GetMapping("/")
-    public String hello(){
-      SysUser sysUser = userService.selectByAccount("lx");
-
-        return JacksonUtils.toJson(sysUser);
-    }
-    @GetMapping("/hello")
-    public String test(){
-        SysUser sysUser = userService.selectByAccount("lx");
-
-        return "hello";
-    }
-}
+//
+//@RequestMapping
+//@RestController
+//public class TestController extends BaseController {
+//    @Autowired
+//    ISysUserService userService;
+//
+//    @GetMapping("/")
+//    public String hello(){
+//      SysUser sysUser = userService.selectByAccount("lx");
+//
+//        return JacksonUtils.toJson(sysUser);
+//    }
+//    @GetMapping("/hello")
+//    public String test(){
+//        SysUser sysUser = userService.selectByAccount("lx");
+//
+//        return "hello";
+//    }
+//}

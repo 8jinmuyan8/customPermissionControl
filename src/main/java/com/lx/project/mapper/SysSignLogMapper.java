@@ -22,5 +22,5 @@ public interface SysSignLogMapper extends BaseMapper<SysSignLog> {
     /**
      * 自定义分页
      */
-    IPage<SysSignLog> getSignLogList(Page page, @Param("acount") String acount);
+    IPage<SysSignLog> getSignLogList(Page page, @Param("username") String username);
 }

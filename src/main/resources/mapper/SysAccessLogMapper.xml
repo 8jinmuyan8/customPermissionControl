@@ -24,11 +24,11 @@
        update tb_sys_access_log set account = #{account} where id = #{id}
     </update>
 
-    <select id="getAccessLogList" parameterType="string" resultMap="BaseResultMap">
+    <select id="getAccessLogList" resultMap="BaseResultMap">
 
             select * from tb_sys_access_log where isactive = 1
             <if test="account != null">
-                and account = #{acount}
+                and account = #{account}
             </if>
 
     </select>

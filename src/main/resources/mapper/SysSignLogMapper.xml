@@ -11,10 +11,10 @@
         <result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
     </resultMap>
-    <select id="getSignLogList" parameterType="string" resultMap="BaseResultMap">
+    <select id="getSignLogList"  resultMap="BaseResultMap">
     select * from tb_sys_sign_log where isactive = 1
     <if test="username != null">
-        and username = #{acount}
+        and username = #{username}
     </if>
     </select>
 </mapper>
