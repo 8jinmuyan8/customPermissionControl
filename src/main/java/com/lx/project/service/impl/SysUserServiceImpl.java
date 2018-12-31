@@ -59,6 +59,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (StringUtils.isNotBlank(userAegnt) && 200 < userAegnt.length()) {
             userAegnt = userAegnt.substring(0, 200);
         }
+
         signLog.setUserAgent(userAegnt);
         signLog.setIpAddr(ipAddr);
         signLog.setUsername(username);
@@ -71,7 +72,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         // 设置登录成功
         signLog.setStatus(1);
-        sysSignLogMapper.update(signLog,null);
+        sysSignLogMapper.updateById(signLog);
 
         String creatToken = username +";"+ System.currentTimeMillis();
         creatToken = TokenUtils.encrypt(creatToken);
