@@ -15,16 +15,20 @@
 npm install heyui
 ```
 脚手架安装  
-```
+```$shell
 sudo npm install -g hey-cli --unsafe-perm=true --allow-root  
 ```
 运行  
-```$xslt
+```$shell
 hey dev
 ```
 *参考*   
 
 https://github.com/heyui/heyui-admin
+
+##数据库MySQL
+
+要求5.6以上，不然导不进去
 
 ##图片参考  
  
