@@ -34,7 +34,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    private String[] ignoreUrls = "/,/**.css,/**.js,/hs,/**.html,/sys/user/signIn,/swagger*,/v2/api-docs".split(",");
+    private String[] ignoreUrls = "/,/**.css,/**.js,/hs,/**.html,/sys/user/signIn,/swagger*,/v2/api-docs,/static/**".split(",");
 
     public AuthInterceptor() {
         log.info("ignoreUrls:{}", Arrays.toString(ignoreUrls));

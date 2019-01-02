@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const initRouter = () => {
   const routerParam = {
-    //mode: 'history',
+   //mode: 'history',
     routes: [ {
       path: '/',
       component: (resolve) => require(['components/app/app-frame'], resolve),
@@ -89,7 +89,7 @@ const initRouter = () => {
       document.title = '管理系统';
     }
     next();
-  })
+  });
   router.afterEach(() => {
     HeyUI.$LoadingBar.success();
     Vue.nextTick(() => {

@@ -65,6 +65,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         signLog.setUsername(username);
         sysSignLogMapper.insert(signLog);
 
+
         SysUserSignModel signModel = userMapper.signIn(username,password);
         if (null == signModel) {
             log.error("请输入正确账号和密码：{}", username);

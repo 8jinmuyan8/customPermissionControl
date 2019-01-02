@@ -111,7 +111,7 @@
         </div>
       </div>
       <div v-else>
-        <router-view></router-view>
+        <router-view ></router-view>
 
       </div>
     </template>
@@ -138,7 +138,8 @@ export default {
     }
   },
   methods: {
-  submit() {
+
+    submit() {
     //
     this.loading = true;
     let username = this.data.username;
@@ -159,6 +160,7 @@ export default {
     fetch.post('/sys/user/signIn', params).then((res)=>{
       if ('000000' != res.code) {
         this.$Message.error(res.msg);
+        this.$router.go(0);
         return;
       }
       this.password = '';
