@@ -146,10 +146,12 @@ export default {
     let password = this.data.password;
     if ('' == username) {
       this.$Message.error('账号不能为空');
+      this.loading = false;
       return;
     }
     if ('' == password) {
       this.$Message.error('密码不能为空');
+      this.loading = false;
       return;
     }
 
@@ -160,7 +162,7 @@ export default {
     fetch.post('/sys/user/signIn', params).then((res)=>{
       if ('000000' != res.code) {
         this.$Message.error(res.msg);
-        this.$router.go(0);
+        this.loading = false;
         return;
       }
       this.password = '';

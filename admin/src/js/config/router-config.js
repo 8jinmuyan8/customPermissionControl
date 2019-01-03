@@ -5,12 +5,12 @@ Vue.use(VueRouter);
 
 const initRouter = () => {
   const routerParam = {
-   //mode: 'history',
+   mode: 'history',
     routes: [ {
       path: '/',
       component: (resolve) => require(['components/app/app-frame'], resolve),
       children: [{
-        path: '',
+        path: '/',
         name: 'Home',
         component: (resolve) => require(['components/welcome/home'], resolve),
         meta: {title: '首页', icon: 'icon-monitor'}
