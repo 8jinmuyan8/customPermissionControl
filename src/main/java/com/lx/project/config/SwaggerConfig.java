@@ -21,8 +21,8 @@ import java.util.List;
 @Configuration
 public class SwaggerConfig {
 	
-	@Value("${swagger.switch}")
-	private boolean swaggerSwitch;
+	//@Value("${swagger.switch}")
+	private boolean swaggerSwitch = true;
 
 	@Bean
 	public Docket api() {

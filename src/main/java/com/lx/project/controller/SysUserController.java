@@ -109,7 +109,7 @@ public class SysUserController extends BaseController{
 
     @PostMapping("/save")
     public JSONModel save(HttpServletRequest request) {
-        CurrentUser currentUser = new CurrentUser();
+        CurrentUser currentUser = CurrentUserContext.get();
         int sex = 0;
         int id = 0 ;
 
@@ -117,7 +117,7 @@ public class SysUserController extends BaseController{
         String roleID = null;
 
         String account = getNotBlankString(request,"account","账户名不为空");
-        String name = getNotBlankString(request,"name","姓名不为空");
+        String name = getString(request,"name");
         String password = getNotBlankString(request,"password","密码不为空");
         String email = getString(request,"email");
         String mobile = getString(request,"mobile");
@@ -142,6 +142,8 @@ public class SysUserController extends BaseController{
 
         SysUser sysUser = new SysUser();
         SysUserRole userRole =new SysUserRole();
+        sysUser.setAccount(account);
+        sysUser.setMobile(mobile);
         sysUser.setId(id);
         sysUser.setName(name);
         sysUser.setPassword(password);

@@ -111,6 +111,7 @@ export default {
         fetch.get('/sys/user/signOut').then(res=>{
           this.$Message(res.msg);
           if ('000000' == res.code) {
+            window.localStorage.removeItem('SYS_TABS');
             window.localStorage.removeItem('token');
             this.$store.dispatch('getSignInStatus', false);
           }
