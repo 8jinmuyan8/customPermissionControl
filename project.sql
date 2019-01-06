@@ -5,7 +5,7 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: www.liangxublog.xyz (MySQL 5.7.24-0ubuntu0.16.04.1)
+# Host:
 # Database: project
 # Generation Time: 2018-12-31 11:38:14 +0000
 # ************************************************************
@@ -272,9 +272,9 @@ LOCK TABLES `tb_sys_user` WRITE;
 
 INSERT INTO `tb_sys_user` (`id`, `account`, `password`, `mobile`, `name`, `email`, `sex`, `access_token`, `domain_name`, `isactive`, `inserttime`, `updatetime`, `birthday`)
 VALUES
-	(1,'lx','12345','13012312313','梁','123@126.com',1,NULL,'lx',1,'2018-12-23 16:27:20','2018-12-31 19:37:19','2018-12-06'),
-	(2,'tjm','Aa123456','1232131223333','唐i','123@126.com',1,'9E3CFEA2BF81FE588FB922B9B7716E26F2A414A577F4CF39751B696F763561BA','lx',1,'2018-12-23 16:38:10','2018-12-30 15:50:12','2018-12-06'),
-	(3,'user','Aa123456','123123123123','user','@qq.com',0,NULL,'lx',1,'2018-12-23 16:40:03','2018-12-31 19:22:54','2018-12-27');
+	(1,'root','admin','13012312313','lx','123@126.com',1,NULL,'lx',1,'2018-12-23 16:27:20','2018-12-31 19:37:19','2018-12-06'),
+	(2,'admin','admin','1232131223333','tj','123@126.com',1,'9E3CFEA2BF81FE588FB922B9B7716E26F2A414A577F4CF39751B696F763561BA','lx',1,'2018-12-23 16:38:10','2018-12-30 15:50:12','2018-12-06'),
+	(3,'user','admin','123123123123','user','@qq.com',0,NULL,'lx',1,'2018-12-23 16:40:03','2018-12-31 19:22:54','2018-12-27');
 
 /*!40000 ALTER TABLE `tb_sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -303,9 +303,9 @@ LOCK TABLES `tb_sys_user_role` WRITE;
 
 INSERT INTO `tb_sys_user_role` (`id`, `sys_user_id`, `sys_role_id`, `domain_name`, `isactive`, `inserttime`, `updatetime`)
 VALUES
-	(1,1,1,'lx',1,'2018-12-23 16:39:00','2018-12-23 16:39:06'),
-	(2,2,1,'lx',1,'2018-12-23 16:39:26','2018-12-23 16:39:31'),
-	(3,3,1,'tjm',1,'2018-12-23 16:39:40','2018-12-31 16:31:53');
+	(1,1,1,'root',1,'2018-12-23 16:39:00','2018-12-23 16:39:06'),
+	(2,2,1,'root',1,'2018-12-23 16:39:26','2018-12-23 16:39:31'),
+	(3,3,1,'root',1,'2018-12-23 16:39:40','2018-12-31 16:31:53');
 
 /*!40000 ALTER TABLE `tb_sys_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
